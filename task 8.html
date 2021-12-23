@@ -1,0 +1,113 @@
+<head>
+
+    <meta charset="UTF-8">
+    <title>Frontend task№9</title>
+
+<style>
+html
+  {
+      font-family: Helvetica;
+  }
+  body
+  {
+      margin-left: 0px;
+      margin-top: 0px;
+  }
+  input, button
+  {
+      border: 1px solid gray;
+  }
+
+  #Out
+  {
+      font-size: 13px;
+  }
+
+  #Save:active
+  {
+      outline: 1px solid blue;
+  }
+
+  #wnd
+  {
+      display: none;
+  }
+</style>
+
+</head>
+
+
+<body>
+
+    <div>
+        <div id="wnd">
+            <div class="interface">
+                <input class="input1" type="text">
+                <input class="input2" type="text">
+                <button class="Up" onclick="Up(this)">↑</button>
+                <button class="Down" onclick="Down(this)">↓</button>
+                <button class="Delete" onclick="Remove(this)">x</button>
+            </div>
+        </div>
+        <div id="actions">
+        </div>
+        <div>
+            <button id="Add" onclick="Add()">Добавить элемент</button>
+            <br>
+            <button id="Save" onclick="Save('Out')">Сохранить</button>
+        </div>
+    </div>
+
+    <div id="Out"></div>
+
+    <script>
+
+        Add = () => 
+    {
+        a = document.querySelector(".interface").cloneNode(true);
+        b = document.querySelector("#actions");
+        b.appendChild(a);
+    };
+
+
+    Save = (out) =>
+    {
+
+        Out = document.querySelector("#" + out);
+        c = document.querySelectorAll(".input1");
+        b = document.querySelectorAll(".input2");
+        a = [];
+        for (var i = 1; i < c.length; i++) {
+            a.push(c[i].value + ":" + b[i].value)
+        }
+        console.log(JSON.stringify(a));
+        a = JSON.stringify(a);
+        a = '{' + a.slice(1, a.length - 1) + '}';
+        Out.innerHTML = a;
+    };
+
+    Up = (me) =>
+    {
+        a = me.parentElement.previousElementSibling;
+        if (a)
+            me.parentElement.after(a);
+    };
+
+    Down = (me) =>
+    {
+        a = me.parentElement.nextElementSibling;
+        if (a)
+            me.parentElement.before(a);
+    };
+
+    Remove = (arg1) =>
+    {
+        arg1.parentElement.remove()
+    };
+
+    Add();
+
+    </script>
+</body>
+
+</html>
